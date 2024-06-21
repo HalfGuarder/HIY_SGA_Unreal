@@ -61,3 +61,18 @@ void Mage::Recovery()
 
 	return;
 }
+
+int Mage::ReturnHpStat()
+{
+	return _maxHp;
+}
+
+int Mage::ReturnMpStat()
+{
+	return _maxMp;
+}
+
+int Mage::ReturnAtkStat()
+{
+	return _atk;
+}

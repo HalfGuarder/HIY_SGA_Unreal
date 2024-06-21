@@ -25,7 +25,12 @@
 
 #include "pch.h"
 
-
+enum Road
+{
+	HUNT = 1,
+	BATTLE = 2,
+	BOSS = 3
+};
 
 int main()
 {
@@ -35,7 +40,9 @@ int main()
 
 	while (true)
 	{
-		if (world->ChooseRoad())
+		int road = world->ChooseRoad();
+
+		if (road == HUNT)
 		{
 			while (true)
 			{
@@ -45,13 +52,24 @@ int main()
 					break;
 			}
 		}
-		else
+		else if (road == BATTLE)
 		{
 			while (true)
 			{
 				world->Battle1();
 
 				if (world->Battle1End())
+					break;
+			}
+		}
+		else if (road == BOSS)
+		{
+			while (true)
+			{
+				cout << "보스전 진입" << endl;
+				world->Battle3();
+
+				if (world->Battle3End())
 					break;
 			}
 		}

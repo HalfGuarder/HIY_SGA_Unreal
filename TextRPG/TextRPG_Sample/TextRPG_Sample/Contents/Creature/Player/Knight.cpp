@@ -61,3 +61,18 @@ void Knight::Recovery()
 
 	return;
 }
+
+int Knight::ReturnHpStat()
+{
+	return _maxHp;
+}
+
+int Knight::ReturnMpStat()
+{
+	return _maxMp;
+}
+
+int Knight::ReturnAtkStat()
+{
+	return _atk;
+}

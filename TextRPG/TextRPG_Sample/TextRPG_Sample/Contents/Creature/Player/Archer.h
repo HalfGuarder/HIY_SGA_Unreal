@@ -13,6 +13,10 @@ public:
 	virtual void Recovery() override;
 
 
+	virtual int ReturnHpStat() override;
+	virtual int ReturnMpStat() override;
+	virtual int ReturnAtkStat() override;
+
 private:
 
 };

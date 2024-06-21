@@ -7,6 +7,9 @@ public:
 
 	virtual void TakeExp(Monster* monster) abstract;
 
+	virtual int ReturnHpStat() abstract;
+	virtual int ReturnMpStat() abstract;
+	virtual int ReturnAtkStat() abstract;
 	
 
 protected:

@@ -16,6 +16,8 @@ public:
 
 	bool IsDead() { return _curHp <= 0; }
 
+
+
 protected: // 멤버 변수 : 속성
 	string _name;
 	int _curHp;

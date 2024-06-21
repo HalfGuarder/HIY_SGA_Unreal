@@ -18,6 +18,8 @@ public:
 		BOSS = 3
 	};
 
+
+
 	World();
 	~World();
 	// 깊은 복사 : 복사 생성자, 복사 대입 연산자 둘 다
@@ -28,15 +30,17 @@ public:
 
 
 	void Init(); // 초기화
-	bool ChooseRoad();
+	int ChooseRoad();
 
 		
 	// 어떤 배틀을 할지 선택
 	void Battle1();
 	void Battle2();
+	void Battle3();
 	
 	bool Battle1End();
 	bool Battle2End();
+	bool Battle3End();
 
 	bool GameEnd();
 
@@ -48,18 +52,24 @@ private:
 	bool SelectComputer(int num, string name, Creature** creature);
 	void Input();
 
-	void SetG_Arr(int size);
-	string G_ArrName(int num);
+	void Set_GArr(int size);
+	string GArrName(int num);
 	void ArrBattle(Creature* p, vector<Creature*> arr);
 	bool ArrIsDead(vector<Creature*> arr);
 	void DeleteArr();
 
+	void Set_HGoblin(Creature** creature);
 
+	void Set_PArr(int size);
+	string PArrName(int pClass, int num);
 
 	
 	vector<Creature*>::iterator gArrIter = _gArr.begin();
 	Creature* _player;
 	Creature* _computer;
 	vector<Creature*> _gArr;
+
+	Creature* _hGoblin;
+	vector<Creature*> _pArr;
 };
 

@@ -48,6 +48,7 @@ void M_Knight::Recovery()
 {
 	_curHp = _maxHp;
 	_curMp = _maxMp;
+	_exp = 100;
 
 	return;
 }

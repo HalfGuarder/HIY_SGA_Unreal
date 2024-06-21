@@ -64,3 +64,18 @@ void Archer::Recovery()
 
 	return;
 }
+
+int Archer::ReturnHpStat()
+{
+	return _maxHp;
+}
+
+int Archer::ReturnMpStat()
+{
+	return _maxMp;
+}
+
+int Archer::ReturnAtkStat()
+{
+	return _atk;
+}

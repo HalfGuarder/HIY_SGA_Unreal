@@ -3,7 +3,8 @@
 
 World::World()
 	:_player(nullptr),
-	_computer(nullptr) // 벡터는 초기화 필요 없음
+	_computer(nullptr), // 벡터는 초기화 필요 없음
+	_hGoblin(nullptr)
 
 {
 	Input();
@@ -26,14 +27,21 @@ World::~World()
 
 void World::Init()
 {
+	_player->Recovery();
+	_computer->Recovery();
+	if (_hGoblin != nullptr)
+	{
+		_hGoblin->Recovery();
+	}
+
 	// 체력 등을 다시 세팅
 }
 
-bool World::ChooseRoad() // bool 유형으로 하면 세 가지를 못 고름 다른 자료형으로 교체 필요
+int World::ChooseRoad() // bool 유형으로 하면 세 가지를 못 고름 다른 자료형으로 교체 필요
 {
 	int road;
 
-	if (!BossChallenge())
+	if (!_computer->IsDead())
 	{
 		while (true)
 		{
@@ -50,14 +58,16 @@ bool World::ChooseRoad() // bool 유형으로 하면 세 가지를 못 고름 다른 자료형으로
 
 			case Road::HUNT:
 			{
+				Init();
 				cout << "사냥을 선택하셨습니다." << endl;
-				return true;
+				return HUNT;
 			}
 
 			case Road::BATTLE:
 			{
+				Init();
 				cout << "대결을 선택하셨습니다." << endl;
-				return false;
+				return BATTLE;
 			}
 
 			default:
@@ -86,20 +96,23 @@ bool World::ChooseRoad() // bool 유형으로 하면 세 가지를 못 고름 다른 자료형으로
 
 			case Road::HUNT:
 			{
+				Init();
 				cout << "사냥을 선택하셨습니다." << endl;
-				return true;
+				return HUNT;
 			}
 
 			case Road::BATTLE:
 			{
+				Init();
 				cout << "대결을 선택하셨습니다." << endl;
-				return false;
+				return BATTLE;
 			}
 
 			case Road::BOSS:
 			{
+				Init();
 				cout << "보스를 선택하셨습니다." << endl;
-				return false;
+				return BOSS;
 			}
 
 			default:
@@ -111,7 +124,6 @@ bool World::ChooseRoad() // bool 유형으로 하면 세 가지를 못 고름 다른 자료형으로
 			}
 		}
 	}
-
 }
 
 bool World::Battle1End()
@@ -119,13 +131,13 @@ bool World::Battle1End()
 	if (_player->IsDead())
 	{
 		cout << "---대결 패배---" << endl;
-		_player->Recovery();
-		_computer->Recovery();
+		//_player->Recovery();
+		//_computer->Recovery();
 		return true;
 	}
 	else if (_computer->IsDead())
 	{
-		_player->Recovery();
+		//_player->Recovery();
 		_player->PrintInfo();
 		cout << "---대결 승리---" << endl;
 		return true;
@@ -145,11 +157,29 @@ bool World::Battle2End()
 	return false;
 }
 
+bool World::Battle3End()
+{
+	if (_player->IsDead() || _hGoblin->IsDead())
+	{
+		cout << "보스 사망." << endl;
+		return true;
+	}
+
+	return false;
+}
+
 bool World::GameEnd()
 {
-	if (_computer->IsDead())
+	if (_hGoblin == nullptr)
 	{
-		return true;
+		return false;
+	}
+	else
+	{
+		if (_hGoblin->IsDead())
+		{
+			return true;
+		}
 	}
 
 	return false;
@@ -268,13 +298,13 @@ void World::Input()
 	}
 }
 
-void World::SetG_Arr(int size)
+void World::Set_GArr(int size)
 {
 	if (_gArr.size() == 0)
 	{
 		for (int i = 0; i < size; i++)
 		{
-			string gName = G_ArrName(i);
+			string gName = GArrName(i);
 			int gHp = rand() % 21 + 40; // 40 ~ 60
 			int gAtk = rand() % 6 + 5; // 5 ~ 10
 			_gArr.push_back(new Goblin(gName, gHp, 0, gAtk, 10));
@@ -284,7 +314,7 @@ void World::SetG_Arr(int size)
 	{
 		for (int i = 0; i < size; i++)
 		{
-			string gName = G_ArrName(i);
+			string gName = GArrName(i);
 			int gHp = rand() % 21 + 40; // 40 ~ 60
 			int gAtk = rand() % 6 + 5; // 5 ~ 10
 			_gArr.at(i) = new Goblin(gName, gHp, 0, gAtk, 10);
@@ -292,7 +322,7 @@ void World::SetG_Arr(int size)
 	}
 }
 
-string World::G_ArrName(int num)
+string World::GArrName(int num)
 {
 	string count = to_string(num + 1);
 	string name = "고블린 ";
@@ -301,7 +331,7 @@ string World::G_ArrName(int num)
 	return name;
 }
 
-void World::ArrBattle(Creature* p, vector<Creature*> arr)
+void World::ArrBattle(Creature* p, vector<Creature*> arr) // gArr가 world에 있기 때문에 arr를 매개 변수로 받지 않아도 사용 가능 ... 수정 필요
 {
 
 	while (true)
@@ -346,7 +376,123 @@ void World::DeleteArr()
 	}
 }
 
+void World::Set_HGoblin(Creature** creature)
+{
+	*creature = new HobGoblin("호브호브 고블린", 0, 1000, 100, 5000);
+}
 
+void World::Set_PArr(int size)
+{
+	Player* stats = dynamic_cast<Player*>(_player);
+
+	if (_pArr.size() == 0)
+	{
+		_pArr.push_back(_player);
+
+		for (int i = 1; i < size; i++)
+		{
+			int pClass = rand() % 3 + 1;
+			
+			if (pClass == KNIGHT)
+			{
+				string pName = PArrName(KNIGHT, i);
+				int pHp = (stats->ReturnHpStat()) * 1.2;
+				int pMp = stats->ReturnMpStat();
+				int pAtk = (stats->ReturnAtkStat()) * 0.5;
+
+				_pArr.push_back(new Knight(pName, pHp, pMp, pAtk, 0));
+			}
+
+			else if (pClass == ARCHER)
+			{
+				string pName = PArrName(ARCHER, i);
+				int pHp = (stats->ReturnHpStat()) * 0.5;
+				int pMp = stats->ReturnMpStat();
+				int pAtk = (stats->ReturnAtkStat()) * 0.7;
+
+				_pArr.push_back(new Archer(pName, pHp, pMp, pAtk, 0));
+			}
+			else if (pClass == MAGE)
+			{
+				string pName = PArrName(MAGE, i);
+				int pHp = stats->ReturnHpStat();
+				int pMp = (stats->ReturnMpStat()) * 0.8;
+				int pAtk = (stats->ReturnAtkStat()) * 0.8;
+
+				_pArr.push_back(new Mage(pName, pHp, pMp, pAtk, 0));
+			}
+			
+		}
+	}
+	else
+	{
+		//_pArr.at(0) = _player;
+
+		for (int i = 1; i < size; i++)
+		{
+			int pClass = rand() % 3 + 1;
+
+			if (pClass == KNIGHT)
+			{
+				string pName = PArrName(KNIGHT, i);
+				int pHp = stats->ReturnHpStat();
+				int pMp = stats->ReturnMpStat();
+				int pAtk = stats->ReturnAtkStat();
+
+				_pArr.at(i) = (new Knight(pName, pHp, pMp, pAtk, 0));
+			}
+
+			else if (pClass == ARCHER)
+			{
+				string pName = PArrName(ARCHER, i);
+				int pHp = stats->ReturnHpStat();
+				int pMp = stats->ReturnMpStat();
+				int pAtk = stats->ReturnAtkStat();
+
+				_pArr.at(i) = (new Archer(pName, pHp, pMp, pAtk, 0));
+			}
+			else if (pClass == MAGE)
+			{
+				string pName = PArrName(MAGE, i);
+				int pHp = stats->ReturnHpStat();
+				int pMp = stats->ReturnMpStat();
+				int pAtk = stats->ReturnAtkStat();
+
+				_pArr.at(i) = (new Mage(pName, pHp, pMp, pAtk, 0));
+			}
+
+		}
+	}
+}
+
+string World::PArrName(int pClass, int num)
+{
+	string returnName;
+
+	if (pClass == KNIGHT)
+	{
+		string count = to_string(num);
+		string name = "파티원 ";
+		name += count; name += "호 - 기사";
+		returnName = name;
+	}
+	else if (pClass == ARCHER)
+	{
+		string count = to_string(num);
+		string name = "파티원 ";
+		name += count; name += "호 - 궁수";
+		returnName = name;
+	}
+	else if (pClass == MAGE)
+	{
+		string count = to_string(num);
+		string name = "파티원 ";
+		name += count; name += "호 - 마법사";
+		returnName = name;
+	}
+
+	return returnName;
+}
 
 void World::Battle1()
 {
@@ -356,12 +502,21 @@ void World::Battle1()
 
 void World::Battle2()
 {	
-	SetG_Arr(10);
+	Set_GArr(10);
 	
 	ArrBattle(_player, _gArr);
 
-	_player->Recovery();
+	//_player->Recovery();
 }
 
-
+void World::Battle3()
+{
+	Set_PArr(10);
+	for (int i = 0; i < _pArr.size(); i++)
+	{
+		_pArr[i]->PrintInfo();
+	}
+	Set_HGoblin(&_hGoblin);
+	_hGoblin->PrintInfo();
+}
 
