@@ -1,0 +1,13 @@
+선형대수학
+- 삼각 함수
+- 기하와 벡터(내적, 외적)
+- 극좌표계
+- 행렬
+
+이득우의 게임 수학
+https://www.youtube.com/watch?v=v9VvJ3O44cY
+https://www.youtube.com/watch?v=50xYsCx2alo
+
+몬스터 상속 받는 홉고블린 생성
+본 플레이어 제외 나머지 플레이어 9명 생성
+(경험치를 본 플레이어와 비슷하게 생성)
