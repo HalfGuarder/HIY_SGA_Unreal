@@ -10,7 +10,7 @@ public:
 	void PrintInfo();
 	void PreAttack(Creature* other);
 	virtual void Attack(Creature* other) abstract; // 순수 가상 함수
-	void TakeDamage(int amount);
+	virtual void TakeDamage(Creature* other, int amount) abstract;
 
 	virtual void Recovery() abstract;
 

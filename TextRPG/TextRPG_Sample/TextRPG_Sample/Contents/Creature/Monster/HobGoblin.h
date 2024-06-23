@@ -1,16 +1,11 @@
 #pragma once
-struct P_Key
+
+struct AggroList
 {
-	P_Key(vector<Creature*> pKey) : _pKey(pKey) {}
+	AggroList(Creature* player) : _player(player), _dmgAmount(0) {}
 
-	vector<Creature*> _pKey;
-};
-
-struct DamageInfo
-{
-	DamageInfo(int damage) : _damage(damage) {}
-
-	int _damage;
+	Creature* _player;
+	int _dmgAmount;
 };
 
 class HobGoblin : public Monster
@@ -20,10 +15,13 @@ public:
 	virtual ~HobGoblin();
 
 	virtual void Attack(Creature* other) override;
+	virtual void TakeDamage(Creature* other, int amount) override;
 
 	virtual int GiveExp() override;
 
 	virtual void Recovery() override;
+
+	void Set_PList(Creature* player);
 
 	void Set_AggroList(vector<Creature*> player);
 	void Modify_AggroList(vector<Creature*> player, int amount);
@@ -31,6 +29,7 @@ public:
 
 
 private:
-	map<P_Key, DamageInfo> _aggroList;
+	vector<AggroList> _aggroList;
+	vector<Creature*> _pList;
 };
 
