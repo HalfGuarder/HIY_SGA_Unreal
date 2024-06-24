@@ -37,40 +37,26 @@ int main()
 	srand(time(nullptr));
 
 	World* world = new World();
-
 	while (true)
 	{
-		int road = world->ChooseRoad();
-
-		if (road == HUNT)
+		while (true)
 		{
-			while (true)
-			{
-				world->Battle2();
+			int road = world->ChooseRoad();
 
-				if (world->Battle2End())
-					break;
-			}
-		}
-		else if (road == BATTLE)
-		{
-			while (true)
+			if (road == HUNT)
 			{
 				world->Battle1();
-
-				if (world->Battle1End())
-					break;
+				break;
 			}
-		}
-		else if (road == BOSS)
-		{
-			while (true)
+			else if (road == BATTLE)
 			{
-				cout << "보스전 진입" << endl;
+				world->Battle2();
+				break;
+			}
+			else if (road == BOSS)
+			{	
 				world->Battle3();
-
-				if (world->Battle3End())
-					break;
+				break;
 			}
 		}
 

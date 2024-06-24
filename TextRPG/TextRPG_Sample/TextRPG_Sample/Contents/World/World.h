@@ -56,7 +56,7 @@ private:
 	string GArrName(int num);
 	void ArrBattle(Creature* p, vector<Creature*> arr);
 	bool ArrIsDead(vector<Creature*> arr);
-	void DeleteArr();
+	void DeleteArr(vector<Creature*> arr);
 
 	void Set_HGoblin(Creature** creature);
 
@@ -69,7 +69,7 @@ private:
 	Creature* _computer;
 	vector<Creature*> _gArr;
 
-	Creature* _hGoblin;
+	Creature* _hGoblin = nullptr;
 	vector<Creature*> _pArr;
 };
 

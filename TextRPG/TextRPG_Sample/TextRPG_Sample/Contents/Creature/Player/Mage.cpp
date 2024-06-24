@@ -28,7 +28,7 @@ void Mage::Attack(Creature* other)
 	else
 	{
 		_curMp -= 5;
-		other->TakeDamage(_atk);
+		other->TakeDamage(_atk, this);
 	}
 
 	if (other->IsDead())

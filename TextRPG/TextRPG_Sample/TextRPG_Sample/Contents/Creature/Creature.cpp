@@ -30,7 +30,7 @@ void Creature::PreAttack(Creature* other)
 	cout << _name << "ÀÇ " << other->_name << "°ø°Ý!" << endl;
 }
 
-void Creature::TakeDamage(int amount)
+void Creature::TakeDamage(int amount, Creature* attacker)
 {
 	_curHp -= amount;
 
