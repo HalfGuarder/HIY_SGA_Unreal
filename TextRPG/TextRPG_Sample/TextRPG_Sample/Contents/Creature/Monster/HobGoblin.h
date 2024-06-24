@@ -1,8 +1,8 @@
 #pragma once
 
-struct AggroList
+struct AggroInfo
 {
-	AggroList(Creature* player) : _player(player), _dmgAmount(0) {}
+	AggroInfo(Creature* player, int dmg) : _player(player), _dmgAmount(dmg) {}
 
 	Creature* _player;
 	int _dmgAmount;
@@ -15,21 +15,16 @@ public:
 	virtual ~HobGoblin();
 
 	virtual void Attack(Creature* other) override;
-	virtual void TakeDamage(Creature* other, int amount) override;
+	virtual void TakeDamage(int amount, Creature* attacker) override;
 
 	virtual int GiveExp() override;
 
 	virtual void Recovery() override;
 
-	void Set_PList(Creature* player);
-
-	void Set_AggroList(vector<Creature*> player);
-	void Modify_AggroList(vector<Creature*> player, int amount);
-	void Sort_AggroList();
+	void Sort_AggroTable();
 
 
 private:
-	vector<AggroList> _aggroList;
-	vector<Creature*> _pList;
+	vector<AggroInfo> _aggroTable;
 };
 

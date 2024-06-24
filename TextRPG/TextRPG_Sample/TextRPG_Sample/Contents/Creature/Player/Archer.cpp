@@ -27,11 +27,11 @@ void Archer::Attack(Creature* other)
 	if (ratio < 0.3f)
 	{
 		cout << "크리티컬 공격! 데미지 3배!" << endl;
-		other->TakeDamage(_atk * 3.0f);
+		other->TakeDamage(_atk * 3.0f, this);
 	}
 	else
 	{
-		other->TakeDamage(_atk);
+		other->TakeDamage(_atk, this);
 	}
 
 	if (other->IsDead())

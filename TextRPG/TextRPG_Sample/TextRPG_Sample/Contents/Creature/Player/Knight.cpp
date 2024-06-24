@@ -24,11 +24,11 @@ void Knight::Attack(Creature* other)
 	if (ratio < 0.5f)
 	{
 		cout << "기사회생! 데미지 2배!" << endl;
-		other->TakeDamage(_atk * 2);
+		other->TakeDamage(_atk * 2, this);
 	}
 	else
 	{
-		other->TakeDamage(_atk);
+		other->TakeDamage(_atk, this);
 	}
 
 	if (other->IsDead())

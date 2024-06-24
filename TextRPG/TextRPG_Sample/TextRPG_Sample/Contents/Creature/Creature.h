@@ -9,8 +9,8 @@ public:
 	// 멤버 함수 : 기능
 	void PrintInfo();
 	void PreAttack(Creature* other);
-	virtual void Attack(Creature* other) abstract; // 순수 가상 함수
-	virtual void TakeDamage(Creature* other, int amount) abstract;
+	virtual void Attack(Creature* other = nullptr) abstract; // 순수 가상 함수
+	virtual void TakeDamage(int amount, Creature* attacker = nullptr);
 
 	virtual void Recovery() abstract;
 
