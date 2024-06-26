@@ -3,7 +3,7 @@ class Circle
 {
 public:
 	// »ý¼ºÀÚ
-	Circle(Vector2 center, Vector2 halfSize);
+	Circle(Vector2 center, Vector2 radius);
 	~Circle() {};
 
 	void Update();
@@ -12,6 +12,6 @@ public:
 public:
 	// ¸â¹ö?
 	Vector2 _center;
-	Vector2 _halfSize;
+	Vector2 _radius;
 };
 

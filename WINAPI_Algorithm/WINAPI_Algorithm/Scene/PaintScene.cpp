@@ -4,6 +4,7 @@
 PaintScene::PaintScene()
 {
     _rect = make_shared<Rect>(Vector2(0.0f, 0.0f), Vector2(50.0f, 50.0f));
+    _circle = make_shared<Circle>(Vector2(100.0f, 100.0f), Vector2(100.0f, 100.0f));
 }
 
 PaintScene::~PaintScene()
@@ -15,6 +16,10 @@ void PaintScene::Update()
     _rect->_center = _rect->_center + Vector2(0.5f, 0.5f);
 
     _rect->Update();
+
+    _circle->_center = _circle->_center + Vector2(1.0f, 1.0f);
+
+    _circle->Update();
 }
 
 void PaintScene::Render(HDC hdc)
