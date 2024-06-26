@@ -194,7 +194,7 @@ bool World::GameEnd()
 	return false;
 }
 
-bool World::SelectPlayer(int num, string name, Creature** creature)
+bool World::SelectPlayer(int num, string name, shared_ptr<Creature*> creature)
 {
 		switch (num)
 		{
@@ -206,7 +206,7 @@ bool World::SelectPlayer(int num, string name, Creature** creature)
 
 		case PlayerType::KNIGHT:
 		{
-			*creature = new Knight(name, 400, 0, 15, 0);
+			_player = make_shared<Knight>(name, 400, 0, 15, 0);
 			cout << "기사를 선택하셨습니다." << endl;
 			return true;
 		}

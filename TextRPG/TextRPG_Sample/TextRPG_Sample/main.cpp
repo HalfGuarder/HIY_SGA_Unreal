@@ -23,6 +23,12 @@
 // 4. Player가 고블린 10마리와 싸우는 전투에서 경험치를 얻고 경험치에 따라서 스탯이 올라갑니다.
 // 5. 전투가 끝나고 사양서1의 게임을 다시해서 이기면 프로그램 종료
 
+// 과제
+// World_1으로 프로그램 돌리기
+// Raw Pointer -> Smart Pointer로 교체
+// 이 때 멤버 함수의 RawPointer 매개 변수들은 유지하되,
+// 함수 오버 로딩으로 Smart Pointer 매개 변수 함수 생성
+
 #include "pch.h"
 
 enum Road
@@ -36,7 +42,7 @@ int main()
 {
 	srand(time(nullptr));
 
-	World* world = new World();
+	shared_ptr<World> world = make_shared<World>();
 	while (true)
 	{
 		while (true)
@@ -65,10 +71,6 @@ int main()
 			break;
 		}
 	}
-	
-
-	delete world;
-
 
 
 	return 0;
