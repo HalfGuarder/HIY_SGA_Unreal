@@ -73,7 +73,7 @@ bool RectCollider::IsCollision(shared_ptr<RectCollider> other)
 
 	if (other->Top() < Bottom() && other->Bottom() > Top())
 	{
-		return (other->Left() < Right() && other->Left() >Left()) || (other->Right() > Left() && other->Right() < Right());
+		return (other->Left() < Right() && other->Left() > Left()) || (other->Right() > Left() && other->Right() < Right());
 	}
 
 	return false;

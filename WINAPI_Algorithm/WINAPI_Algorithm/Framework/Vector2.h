@@ -83,7 +83,7 @@ public:
 
 	void Normalize();
 
-	Vector2 NormalVector2(const Vector2& other);
+	Vector2 NormalVector2();
 
 	float _x;
 	float _y;

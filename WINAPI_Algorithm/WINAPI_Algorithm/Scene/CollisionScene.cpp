@@ -7,7 +7,7 @@ CollisionScene::CollisionScene()
 	_moveCircle = make_shared<CircleCollider>(Vector2(0, 0), 30);
 
 	_rect1 = make_shared<RectCollider>(Vector2(700, 300), Vector2(50, 70));
-	_moveRect = make_shared<RectCollider>(Vector2(0, 0), Vector2(30, 30));
+	_moveRect = make_shared<RectCollider>(Vector2(0, 0), Vector2(10, 10));
 }
 
 CollisionScene::~CollisionScene()
@@ -16,7 +16,7 @@ CollisionScene::~CollisionScene()
 
 void CollisionScene::Update()
 {
-	_moveCircle->_center = LERP(_moveCircle->_center, mousePos, 0.1f);
+	_moveCircle->_center = mousePos;//LERP(_moveCircle->_center, mousePos, 0.1f);
 	_moveRect->_center = mousePos;
 
 
@@ -27,12 +27,12 @@ void CollisionScene::Update()
 
 	if (_moveCircle->IsCollision(_rect1))
 	{
-		_circle1->SetRed();
+		_rect1->SetRed();
 		_moveCircle->SetGreen();
 	}
 	else
 	{
-		_circle1->SetGreen();
+		_rect1->SetGreen();
 		_moveCircle->SetRed();
 	}
 

@@ -17,11 +17,11 @@ float Vector2::Distance(Vector2 other) const
 
 void Vector2::Normalize()
 {
-	this->_x = this->_x / sqrt((this->_x * this->_x) + (this->_y * this->_y));
-	this->_y = this->_y / sqrt((this->_x * this->_x) + (this->_y * this->_y));
+	this->_x = this->_x / Length();
+	this->_y = this->_y / Length();
 }
 
-Vector2 Vector2::NormalVector2(const Vector2& other)
+Vector2 Vector2::NormalVector2()
 {
 	Vector2 result= *this;
 	// result._x = (this->_x * other._y - this->_y * other._x)

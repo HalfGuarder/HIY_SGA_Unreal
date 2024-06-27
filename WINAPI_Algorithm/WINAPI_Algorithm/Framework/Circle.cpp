@@ -54,10 +54,24 @@ bool CircleCollider::IsCollision(shared_ptr<RectCollider> other)
 	// 과제
 	// AABB(회전하지 않는다는 조건)(WINAPI), OBB(회전이 가능)(WINAPI, DirectX) 충돌
 
+	float distance = _center.Distance(other->_center);
 
-	// float distance = _center.Distance(other->_center);
+	Vector2 Left = Vector2(_center._x - _radius, _center._y);
+	Vector2 Right = Vector2(_center._x + _radius, _center._y);
+	Vector2 Top = Vector2(_center._x, _center._y - _radius);
+	Vector2 Bottom = Vector2(_center._x, _center._y + _radius);
 
-	// return distance < _radius + other->_halfSize.Length();
+	if (_radius + other->_halfSize.Length() < distance)
+	{
+		return false;
+	}
+
+	if (Left._x < other->Right() && Right._x > other->Left())
+	{
+		if (Bottom._y > other->Top() && Top._y < other->Bottom())
+			return true;
+	}
+
 
 	return false;
 }

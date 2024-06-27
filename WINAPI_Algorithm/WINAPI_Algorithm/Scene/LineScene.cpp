@@ -13,11 +13,19 @@ LineScene::~LineScene()
 {
 }
 
+// A = 2, B = 1
 void LineScene::Update() // 내적 투영
 {
 	_line2->_end = mousePos;
 
-	_line3->_end = Vector2();
+	float dot = _line2->_end.Dot(_line1->_end);
+	Vector2 normalize = _line1->_end.NormalVector2();
+	float length = _line1->_end.Length();
+
+	_line3->_end = Vector2(normalize * dot / length);
+	
+	
+
 
 	_line1->Update();
 	_line2->Update();
