@@ -1,5 +1,0 @@
-깃허브 데스크톱
-
-공부 참조
-MSDN
-cppreference(plus)

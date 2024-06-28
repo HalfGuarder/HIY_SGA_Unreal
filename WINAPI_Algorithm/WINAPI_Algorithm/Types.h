@@ -1,4 +1,5 @@
 #pragma once
+#include "Framework\Vector2.h"
 
 #define RED				RGB(255, 0 , 0)
 #define GREEN			RGB(0, 255, 0)
@@ -9,3 +10,9 @@
 #define MINT			RGB(102, 255, 204)
 
 #define LERP(s, e, t)	s + (e - s) * t
+
+struct HResult
+{
+	bool isCollision;
+	class Vector2 hitPoint;
+};
