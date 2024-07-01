@@ -36,7 +36,7 @@ void CollisionScene::Update()
 		_moveCircle->SetRed();
 	}
 
-	if (_rect1->IsCollision(_moveRect))
+	if (_rect1->IsCollision(_moveCircle))
 	{
 		_rect1->SetRed();
 	}

@@ -74,6 +74,44 @@ bool CircleCollider::IsCollision(shared_ptr<RectCollider> other)
 
 
 	return false;
+
+	/*Vector2 circleCenter = _center;
+	float radius = _radius;
+
+	Vector2 rectCenter = other->_center;
+	Vector2 rectHalfSize = other->_halfSize;
+
+	if (circleCenter._x < other->Right() && circleCenter._x > other->Left())
+	{
+
+		Vector2 newHalfSize = Vector2(rectHalfSize._x + radius, rectHalfSize._y + radius);
+		RectCollider newRect = RectCollider(other->_center, newHalfSize);
+
+		if (newRect.IsCollision(circleCenter))
+			return true;
+
+	}
+
+	else if (circleCenter._y < other->Bottom() && circleCenter._y > other->Top())
+	{
+		Vector2 newHalfSize = Vector2(rectHalfSize._x + radius, rectHalfSize._y + radius);
+		RectCollider newRect = RectCollider(other->_center, newHalfSize);
+
+		if (newRect.IsCollision(circleCenter))
+			return true;
+	}
+
+	else
+	{
+		bool check1 = IsCollision(Vector2(other->Left(), other->Top()));
+		bool check2 = IsCollision(Vector2(other->Left(), other->Bottom()));
+		bool check3 = IsCollision(Vector2(other->Right(), other->Top()));
+		bool check4 = IsCollision(Vector2(other->Right(), other->Bottom()));
+
+		return check1 || check2 || check3 || check4;
+	}
+
+	return false;*/
 }
 
 void CircleCollider::SetColor(ColorNum index)
