@@ -7,7 +7,7 @@
 ArkanoidScene::ArkanoidScene()
 {
 	_map = make_shared<Map>();
-	_bar = make_shared<Bar>();
+	//_bar = make_shared<Bar>();
 }
 
 ArkanoidScene::~ArkanoidScene()
@@ -17,7 +17,7 @@ ArkanoidScene::~ArkanoidScene()
 void ArkanoidScene::Update()
 {
 	_map->Update();
-	_bar->Update();
+	//_bar->Update();
 }
 
 void ArkanoidScene::Render(HDC hdc)
@@ -26,5 +26,5 @@ void ArkanoidScene::Render(HDC hdc)
 	TextOut(hdc, CENTER._x - 500, 100, temp.c_str(), temp.size());
 
 	_map->Render(hdc);
-	_bar->Render(hdc);
+	//_bar->Render(hdc);
 }

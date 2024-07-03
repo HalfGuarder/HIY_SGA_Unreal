@@ -1,9 +1,14 @@
 #include "pch.h"
 #include "Map.h"
+#include "Bar.h"
 #include "A_Block.h"
+#include "Ball.h"
 
 Map::Map()
 {
+	_bar = make_shared<Bar>();
+	_ball = make_shared<Ball>();
+
 	Vector2 offSet = Vector2(600, 50);
 
 	// 펜스 행렬 생성
@@ -30,6 +35,8 @@ Map::Map()
 	}
 
 	CreateMap();
+
+	_ball->OnStart(_aBlocks[49][14]->_center + Vector2(0, 30), Vector2(0, -1));
 }
 
 Map::~Map()
@@ -38,18 +45,18 @@ Map::~Map()
 
 void Map::Update()
 {
-	for (auto fence : _fences)
-	{
-		fence->Update();
-	}
-
 	for (auto aBlock_x : _aBlocks)
 	{
 		for (auto aBlock : aBlock_x)
 		{
 			aBlock->Update();
 		}
-	}
+	}	
+	
+	_bar->Update();
+	_ball->Update();
+
+	_ball->Bounce(_bar, _aBlocks, _fences);
 }
 
 void Map::Render(HDC hdc)
@@ -66,6 +73,9 @@ void Map::Render(HDC hdc)
 			aBlock->Render(hdc);
 		}
 	}
+
+	_bar->Render(hdc);
+	_ball->Render(hdc);
 }
 
 void Map::SetFence(Vector2 offSet)
@@ -91,6 +101,11 @@ void Map::SetFence(Vector2 offSet)
 	_fences.push_back(leftFence);
 	_fences.push_back(rightFence);
 	_fences.push_back(upperFence);
+
+	for (auto fence : _fences)
+	{
+		fence->Update();
+	}
 }
 
 void Map::CreateMap()

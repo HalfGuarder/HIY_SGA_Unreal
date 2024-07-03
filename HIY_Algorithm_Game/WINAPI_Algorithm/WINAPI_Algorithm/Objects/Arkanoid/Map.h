@@ -25,5 +25,8 @@ public:
 private:
 	vector<vector<shared_ptr<A_Block>>> _aBlocks;
 	vector<shared_ptr<A_Block>> _fences;
+
+	shared_ptr<class Bar> _bar; // 씬에서 바, 볼, 맵이 만나는 것이 좋을 것으로 보임
+	shared_ptr<class Ball> _ball;
 };
 
