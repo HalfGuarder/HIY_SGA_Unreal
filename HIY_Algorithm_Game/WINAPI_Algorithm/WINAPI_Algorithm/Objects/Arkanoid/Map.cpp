@@ -1,13 +1,11 @@
 #include "pch.h"
 #include "Map.h"
-#include "Bar.h"
 #include "A_Block.h"
-#include "Ball.h"
 
 Map::Map()
 {
-	_bar = make_shared<Bar>();
-	_ball = make_shared<Ball>();
+	//_bar = make_shared<Bar>();
+	//_ball = make_shared<Ball>();
 
 	Vector2 offSet = Vector2(600, 50);
 
@@ -36,7 +34,7 @@ Map::Map()
 
 	CreateMap();
 
-	_ball->OnStart(_aBlocks[49][14]->_center + Vector2(0, 30), Vector2(0, -1));
+	//_ball->OnStart(_aBlocks[49][14]->_center + Vector2(0, 30), Vector2(0, -1));
 }
 
 Map::~Map()
@@ -53,10 +51,10 @@ void Map::Update()
 		}
 	}	
 	
-	_bar->Update();
-	_ball->Update();
+	//_bar->Update();
+	//_ball->Update();
 
-	_ball->Bounce(_bar, _aBlocks, _fences);
+	//_ball->Bounce(_bar, _aBlocks, _fences);
 }
 
 void Map::Render(HDC hdc)
@@ -74,8 +72,8 @@ void Map::Render(HDC hdc)
 		}
 	}
 
-	_bar->Render(hdc);
-	_ball->Render(hdc);
+	//_bar->Render(hdc);
+	//_ball->Render(hdc);
 }
 
 void Map::SetFence(Vector2 offSet)
@@ -108,6 +106,21 @@ void Map::SetFence(Vector2 offSet)
 	}
 }
 
+vector<vector<shared_ptr<A_Block>>> Map::GetBlocks()
+{
+	return _aBlocks;
+}
+
+vector<shared_ptr<A_Block>> Map::GetFences()
+{
+	return _fences;
+}
+
+shared_ptr<A_Block> Map::GetSingleBlock(int Y, int X)
+{
+	return _aBlocks[Y][X];
+}
+
 void Map::CreateMap()
 {
 	for (int y = 0; y < MAXCOUNT_Y; y++)
@@ -138,4 +151,9 @@ void Map::CreateMap()
 			}
 		}
 	}
+}
+
+void Map::DeleteBlock(shared_ptr<A_Block> block)
+{
+	
 }

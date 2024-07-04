@@ -17,16 +17,20 @@ public:
 	void Render(HDC hdc);
 
 	void SetFence(Vector2 offSet);
+	
+	vector<vector<shared_ptr<A_Block>>> GetBlocks();
+	vector<shared_ptr<A_Block>> GetFences();
+	shared_ptr<A_Block> GetSingleBlock(int Y, int X);
 
 	void CreateMap();
 	
-
+	void DeleteBlock(shared_ptr<A_Block> block);
 
 private:
 	vector<vector<shared_ptr<A_Block>>> _aBlocks;
 	vector<shared_ptr<A_Block>> _fences;
 
-	shared_ptr<class Bar> _bar; // 씬에서 바, 볼, 맵이 만나는 것이 좋을 것으로 보임
-	shared_ptr<class Ball> _ball;
+	//shared_ptr<class Bar> _bar; // 씬에서 바, 볼, 맵이 만나는 것이 좋을 것으로 보임
+	//shared_ptr<class Ball> _ball;
 };
 

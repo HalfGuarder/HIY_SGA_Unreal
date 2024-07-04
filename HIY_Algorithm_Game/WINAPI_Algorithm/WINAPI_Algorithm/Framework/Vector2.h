@@ -100,7 +100,7 @@ public:
 	
 	float Length() const;
 	float Distance(Vector2 other) const;
-	float Angle() const;
+	float Angle() const { return atan2f(this->_y,this->_x); }
 
 	void Normalize();
 

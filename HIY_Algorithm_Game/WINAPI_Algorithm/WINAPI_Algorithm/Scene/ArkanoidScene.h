@@ -12,7 +12,7 @@ public:
 
 private:
 	shared_ptr<class Map> _map;
-	//shared_ptr<class Bar> _bar;
-
+	shared_ptr<class Bar> _bar;
+	shared_ptr<class Ball> _ball;
 };
 

@@ -14,7 +14,7 @@ template<typename T, typename Container = vector<int>>
 class Stack
 {
 public:
-    void Push(const T& i) { _stack.push_back(i); }
+    void Push(const T& value) { _stack.push_back(value); }
 
     void Pop() { _stack.pop_back(); }
 

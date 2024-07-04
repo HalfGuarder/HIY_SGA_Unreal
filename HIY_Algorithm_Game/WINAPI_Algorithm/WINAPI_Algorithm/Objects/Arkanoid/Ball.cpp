@@ -37,14 +37,23 @@ void Ball::Bounce(shared_ptr<class Bar> bar,
 {
 	auto col = dynamic_pointer_cast<CircleCollider>(_col);
 	auto barBody = bar->GetCollider();
-	int ySize = MAXCOUNT_Y;
-	int xSize = MAXCOUNT_X;
+	int ySize = block.size(); // MAXCOUNT_Y 였음
+	int xSize = block[0].size(); // MAXCOUNT_x 였음
 
 	if (barBody->IsCollision(col))
 	{
 		if (col->_center._y > barBody->_center._y)
 		{
-			_direction._y *= -1.0f;
+			if (col->_center._x < barBody->_center._x)
+			{
+				_direction._y *= -1.0f;
+				_direction._x = -col->_center.Angle(); // 각도를 어떻게 할 것인가?
+			}
+			else
+			{
+				_direction._y *= -1.0f;
+				_direction._x = col->_center.Angle();
+			}
 		}
 	}
 
@@ -57,6 +66,12 @@ void Ball::Bounce(shared_ptr<class Bar> bar,
 				if (col->_center._y > block[i][j]->_center._y)
 				{
 					_direction._y *= -1.0f;
+					// 제거 함수
+				}
+
+				else if (col->_center._y < block[i][j]->_center._y)
+				{
+					_direction._y *= 1.0f;
 				}
 			}
 		}
