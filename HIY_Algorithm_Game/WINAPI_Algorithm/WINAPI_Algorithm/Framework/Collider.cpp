@@ -4,6 +4,7 @@
 Collider::Collider(Vector2 center)
 : _center(center)
 {
+	_pens.push_back(CreatePen(PS_SOLID, 3, BLACK));
 	_pens.push_back(CreatePen(PS_SOLID, 3, GREEN));
 	_pens.push_back(CreatePen(PS_SOLID, 3, RED));
 	_pens.push_back(CreatePen(PS_SOLID, 3, SKYCOLOR));

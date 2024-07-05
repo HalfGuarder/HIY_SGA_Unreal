@@ -12,7 +12,7 @@ ArkanoidScene::ArkanoidScene()
 	_bar = make_shared<Bar>();
 	_ball = make_shared<Ball>();
 
-	_ball->OnStart(_map->GetSingleBlock(49, 14)->_center + Vector2(0, 30), Vector2(0, -1));
+	//_ball->OnStart(_map->GetSingleBlock(49, 14)->_center + Vector2(0, 30), Vector2(0, -1));
 }
 
 ArkanoidScene::~ArkanoidScene()
@@ -26,7 +26,7 @@ void ArkanoidScene::Update()
 
 	_ball->Update();
 
-	_ball->Bounce(_bar, _map->GetBlocks(), _map->GetFences());
+	//_ball->Bounce(_map, _bar, _map->GetBlocks(), _map->GetFences());
 }
 
 void ArkanoidScene::Render(HDC hdc)

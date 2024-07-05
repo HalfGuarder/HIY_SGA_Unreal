@@ -8,6 +8,7 @@
 #define WIN_HEIGHT		1080
 #define CENTER			Vector2(WIN_WIDTH * 0.5f, WIN_HEIGHT * 0.5f)
 
+#define BLACK			RGB(0,0,0)
 #define RED				RGB(255,0,0)
 #define GREEN			RGB(0,255,0)
 #define BLUE			RGB(0,0,255)

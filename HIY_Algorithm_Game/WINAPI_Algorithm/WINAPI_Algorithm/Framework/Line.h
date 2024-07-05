@@ -13,8 +13,9 @@ public:
 
 	HResult IsCollision(shared_ptr<Line> other);
 
-	void SetRed() { _curPen = _pens[0]; }
-	void SetGreen() { _curPen = _pens[1]; }
+	void SetBlack() { _curPen = _pens[0]; }
+	void SetRed() { _curPen = _pens[1]; }
+	void SetGreen() { _curPen = _pens[2]; }
 
 public:
 	vector<HPEN> _pens;

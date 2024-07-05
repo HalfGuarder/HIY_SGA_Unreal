@@ -10,7 +10,8 @@ public:
 
 	void OnStart(Vector2 startPos, Vector2 direction);
 
-	void Bounce(shared_ptr<class Bar> bar,
+	void Bounce(shared_ptr<class Map>& map,
+				shared_ptr<class Bar> bar,
 				vector<vector<shared_ptr<class A_Block>>> block,
 				vector<shared_ptr<class A_Block>> fence);
 

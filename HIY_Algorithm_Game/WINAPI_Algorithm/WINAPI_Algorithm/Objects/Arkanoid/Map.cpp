@@ -4,9 +4,6 @@
 
 Map::Map()
 {
-	//_bar = make_shared<Bar>();
-	//_ball = make_shared<Ball>();
-
 	Vector2 offSet = Vector2(600, 50);
 
 	// 펜스 행렬 생성
@@ -27,14 +24,15 @@ Map::Map()
 			shared_ptr<A_Block> aBlock = make_shared<A_Block>();
 			aBlock->SetBlockType(A_Block::A_BlockType::NONE);
 			aBlock->SetPositon(aBlockOffSet);
-			aBlocks_x.push_back(aBlock);
+			//aBlocks_x.push_back(aBlock);
 		}
-		_aBlocks.push_back(aBlocks_x);
+		//_aBlocks.push_back(aBlocks_x);
 	}
 
-	CreateMap();
+	//CreateMap();
 
-	//_ball->OnStart(_aBlocks[49][14]->_center + Vector2(0, 30), Vector2(0, -1));
+
+	_deleteBlocks.reserve(MAXCOUNT_Y * MAXCOUNT_X);
 }
 
 Map::~Map()
@@ -49,7 +47,12 @@ void Map::Update()
 		{
 			aBlock->Update();
 		}
-	}	
+	}
+
+	for (auto deletedBlock : _deleteBlocks)
+	{
+		deletedBlock->SetRed();
+	}
 	
 	//_bar->Update();
 	//_ball->Update();
@@ -59,6 +62,8 @@ void Map::Update()
 
 void Map::Render(HDC hdc)
 {
+	int check = 0;
+
 	for (auto fence : _fences)
 	{
 		fence->Render(hdc);
@@ -127,7 +132,7 @@ void Map::CreateMap()
 	{
 		for (int x = 0; x < MAXCOUNT_X; x++)
 		{
-			if (y == 0)
+			/*if (y == 0)
 			{
 				_aBlocks[y][x]->SetBlockType(A_Block::A_BlockType::NONDESTROY);
 				continue;
@@ -149,11 +154,28 @@ void Map::CreateMap()
 			{
 				_aBlocks[y][x]->SetBlockType(A_Block::A_BlockType::NONE);
 			}
+			*/
+			_aBlocks[y][x]->SetBlockType(A_Block::A_BlockType::DESTROY);
 		}
 	}
 }
 
 void Map::DeleteBlock(shared_ptr<A_Block> block)
 {
-	
+	block->SetBlockType(A_Block::A_BlockType::NONE);
+	_deleteBlocks.push_back(block);
+
+	//map->_aBlocks[i].erase(map->_aBlocks[i].begin() + j);
+}
+
+bool Map::DeletedCheck(shared_ptr<A_Block> block)
+{
+	auto iter = std::find(_deleteBlocks.begin(), _deleteBlocks.end(), block);
+
+	if (iter != _deleteBlocks.end())
+	{
+		return true;
+	}
+
+	return false;
 }
