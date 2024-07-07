@@ -4,8 +4,8 @@
 
 class A_Block;
 
-#define MAXCOUNT_X 30
-#define MAXCOUNT_Y 50
+#define MAXCOUNT_X 25
+#define MAXCOUNT_Y 40
 
 class Map
 {

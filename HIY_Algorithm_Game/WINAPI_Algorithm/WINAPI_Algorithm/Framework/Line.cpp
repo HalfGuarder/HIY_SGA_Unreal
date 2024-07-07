@@ -4,6 +4,7 @@
 Line::Line(Vector2 start, Vector2 end)
 : _start(start), _end(end)
 {
+	_pens.push_back(CreatePen(PS_SOLID, 3,BLACK));
 	_pens.push_back(CreatePen(PS_SOLID,3,RED));
 	_pens.push_back(CreatePen(PS_SOLID,3,GREEN));
 

@@ -21,14 +21,15 @@ void Ball::Update()
 
 void Ball::Render(HDC hdc)
 {
+	_col->SetRed();
+	SelectObject(hdc, _brush);
 	_col->Render(hdc);
 }
 
-void Ball::OnStart(Vector2 startPos, Vector2 direction)
+void Ball::OnStart()
 {
-	_col->_center = startPos;
-	_direction = direction;
-	_direction.Normalize();
+	_col->_center = Vector2(1000, 700);
+	_direction = Vector2(0, 1);
 }
 
 void Ball::Bounce(shared_ptr<class Map>& map,
@@ -41,33 +42,21 @@ void Ball::Bounce(shared_ptr<class Map>& map,
 	int ySize = block.size(); // MAXCOUNT_Y 였음
 	int xSize = block[0].size(); // MAXCOUNT_x 였음
 
+	if (col->_center._y > 1400)
+	{
+		score -= 500;
+		if (score < 0)
+		{
+			score = 0;
+		}
+		OnStart();
+	}
+
 	if (barBody->IsCollision(col))
 	{
-		if (col->_center._x < barBody->_center._x - 50)
-		{
-				_direction._y *= -1.0f;
-				_direction._x *= -1.0f;
-		}
-
-		if (col->_center._x > barBody->_center._x + 50)
-		{
-				_direction._y *= -1.0f;
-				_direction._x *= -1.0f;
-		}
-
-		if (col->_center._y > barBody->_center._y - 20)
-		{
-			if (col->_center._x < barBody->_center._x)
-			{
-				_direction._y *= -1.0f;
-				_direction._x = -col->_center.Angle(); // 각도를 어떻게 할 것인가?
-			}
-			else
-			{
-				_direction._y *= -1.0f;
-				_direction._x = col->_center.Angle();
-			}
-		}
+		Vector2 dir = col->_center - barBody->_center;
+		dir.Normalize();
+		SetDir(dir);
 	}
 
 	for (int i = 0; i < ySize; i++)
@@ -84,13 +73,15 @@ void Ball::Bounce(shared_ptr<class Map>& map,
 				if (col->_center._y > block[i][j]->_center._y)
 				{
 					_direction._y *= -1.0f;
-					// 제거 함수
 					map->DeleteBlock(block[i][j]);
+					score += 100;
 				}
 
 				else if (col->_center._y < block[i][j]->_center._y)
 				{
-					_direction._y *= 1.0f;
+					_direction._y *= -1.0f;
+					map->DeleteBlock(block[i][j]);
+					score += 100;
 				}
 			}
 		}
@@ -99,16 +90,23 @@ void Ball::Bounce(shared_ptr<class Map>& map,
 
 	if (fence[0]->IsCollision(col))
 	{
-		if (col->_center._x < fence[0]->_center._x + fence[0]->_halfSize._x)
+		if (col->_center._x - col->_radius < fence[0]->_center._x + fence[0]->_halfSize._x)
 		{
 			_direction._x *= -1.0f;
 		}
 	}
 	if (fence[1]->IsCollision(col))
 	{
-		if (col->_center._x > fence[0]->_center._x - fence[0]->_halfSize._x)
+		if (col->_center._x + col->_radius > fence[1]->_center._x - fence[1]->_halfSize._x)
 		{
 			_direction._x *= -1.0f;
+		}
+	}
+	if (fence[2]->IsCollision(col))
+	{
+		if (col->_center._y - col->_radius > fence[2]->_center._y + fence[2]->_halfSize._y)
+		{
+			_direction._y *= -1.0f;
 		}
 	}
 

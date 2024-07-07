@@ -21,17 +21,17 @@ void Bullet::Update()
 	_col->_center += _direction * _speed;
 
 	// TODO(과제) : 중력 적용(과제할 때는 주석 해제)
-	//_col->_center += _downVector;
-	//_downVector += Vector2(0, 1) * GRAVITY;
+	_col->_center += _downVector;
+	_downVector += Vector2(0, 1) * GRAVITY;
 
 	// TODO(과제) : 화면 밖으로 나갔을 때 사라지는 코드
 	// OutControll : 반사를 위한 함수
-	//bool isOut = IsOut();
+	// bool isOut = IsOut();
 
-	OutControll();
+	// OutControll();
 
 	bool isOut = IsOut();
-	if (_lifeTime > _delayTime /* || isOut*/)
+	if (_lifeTime > _delayTime  || isOut)
 	{
 		_lifeTime = 0.0f;
 		_isActive = false;

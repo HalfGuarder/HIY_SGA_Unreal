@@ -42,7 +42,7 @@ void A_Block::SetBlockType(A_BlockType type)
 	{
 	case A_Block::A_BlockType::NONE:
 	{
-		//SetBlack();
+		SetBlack();
 	}
 		break;
 	case A_Block::A_BlockType::DESTROY:
@@ -50,7 +50,7 @@ void A_Block::SetBlockType(A_BlockType type)
 		SetGreen();
 	}
 		break;
-	case A_Block::A_BlockType::NONDESTROY:
+	case A_Block::A_BlockType::NONEDESTROY:
 	{
 		SetRed();
 	}

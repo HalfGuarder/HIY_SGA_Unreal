@@ -12,7 +12,7 @@ ArkanoidScene::ArkanoidScene()
 	_bar = make_shared<Bar>();
 	_ball = make_shared<Ball>();
 
-	//_ball->OnStart(_map->GetSingleBlock(49, 14)->_center + Vector2(0, 30), Vector2(0, -1));
+	_ball->OnStart();
 }
 
 ArkanoidScene::~ArkanoidScene()
@@ -26,13 +26,19 @@ void ArkanoidScene::Update()
 
 	_ball->Update();
 
-	//_ball->Bounce(_map, _bar, _map->GetBlocks(), _map->GetFences());
+	_ball->Bounce(_map, _bar, _map->GetBlocks(), _map->GetFences());
 }
 
 void ArkanoidScene::Render(HDC hdc)
 {
 	wstring temp = L"Hello Arkanoid!!!";
 	TextOut(hdc, CENTER._x - 500, 100, temp.c_str(), temp.size());
+
+	wstring tmpScore1 = L"Score : ";
+	wstring tmpScore2 = _ball->CurScore();
+
+	TextOut(hdc, CENTER._x - 500, 130, tmpScore1.c_str(), tmpScore1.size());
+	TextOut(hdc, CENTER._x - 440, 130, tmpScore2.c_str(), tmpScore2.size());
 
 	_map->Render(hdc);
 	_bar->Render(hdc);

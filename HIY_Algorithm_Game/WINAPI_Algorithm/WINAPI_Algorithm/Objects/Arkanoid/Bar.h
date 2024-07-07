@@ -14,6 +14,7 @@ public:
 
 private:
 	shared_ptr<Collider> _body;
+	HBRUSH _brush = CreateSolidBrush(GREEN);
 
 
 };

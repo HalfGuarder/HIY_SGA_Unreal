@@ -3,7 +3,7 @@
 
 Bar::Bar()
 {
-	_body = make_shared<RectCollider>(CENTER + Vector2(0, 350), Vector2(50, 20));
+	_body = make_shared<RectCollider>(CENTER + Vector2(40, 350), Vector2(50, 20));
 }
 
 Bar::~Bar()
@@ -30,5 +30,7 @@ void Bar::Update()
 
 void Bar::Render(HDC hdc)
 {
+	_body->SetGreen();
+	SelectObject(hdc, _brush);
 	_body->Render(hdc);
 }

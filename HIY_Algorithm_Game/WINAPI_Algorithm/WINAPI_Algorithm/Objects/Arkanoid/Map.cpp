@@ -4,7 +4,7 @@
 
 Map::Map()
 {
-	Vector2 offSet = Vector2(600, 50);
+	Vector2 offSet = Vector2(700, 100);
 
 	// 펜스 행렬 생성
 	SetFence(offSet);
@@ -24,12 +24,12 @@ Map::Map()
 			shared_ptr<A_Block> aBlock = make_shared<A_Block>();
 			aBlock->SetBlockType(A_Block::A_BlockType::NONE);
 			aBlock->SetPositon(aBlockOffSet);
-			//aBlocks_x.push_back(aBlock);
+			aBlocks_x.push_back(aBlock);
 		}
-		//_aBlocks.push_back(aBlocks_x);
-	}
+		_aBlocks.push_back(aBlocks_x);
+	} 
 
-	//CreateMap();
+	CreateMap();
 
 
 	_deleteBlocks.reserve(MAXCOUNT_Y * MAXCOUNT_X);
@@ -51,13 +51,9 @@ void Map::Update()
 
 	for (auto deletedBlock : _deleteBlocks)
 	{
-		deletedBlock->SetRed();
+		deletedBlock->SetBlack();
 	}
 	
-	//_bar->Update();
-	//_ball->Update();
-
-	//_ball->Bounce(_bar, _aBlocks, _fences);
 }
 
 void Map::Render(HDC hdc)
@@ -76,9 +72,6 @@ void Map::Render(HDC hdc)
 			aBlock->Render(hdc);
 		}
 	}
-
-	//_bar->Render(hdc);
-	//_ball->Render(hdc);
 }
 
 void Map::SetFence(Vector2 offSet)
@@ -89,13 +82,13 @@ void Map::SetFence(Vector2 offSet)
 	shared_ptr<A_Block> rightFence = make_shared<A_Block>();
 	shared_ptr<A_Block> upperFence = make_shared<A_Block>();
 
-	leftFence->SetBlockType(A_Block::A_BlockType::NONE);
-	rightFence->SetBlockType(A_Block::A_BlockType::NONE);
-	upperFence->SetBlockType(A_Block::A_BlockType::NONE);
+	leftFence->SetBlockType(A_Block::A_BlockType::NONEDESTROY);
+	rightFence->SetBlockType(A_Block::A_BlockType::NONEDESTROY);
+	upperFence->SetBlockType(A_Block::A_BlockType::NONEDESTROY);
 
-	leftFence->SetPositon(offSet + Vector2(-25.0f, 400.0f));
-	rightFence->SetPositon(offSet + Vector2(750.0f, 400.0f));
-	upperFence->SetPositon(offSet + Vector2(360.0f, 0.0f));
+	leftFence->SetPositon(offSet + Vector2(-65.0f, 400.0f));
+	rightFence->SetPositon(offSet + Vector2(665.0f, 400.0f));
+	upperFence->SetPositon(offSet + Vector2(280.0f, -60.0f));
 
 	leftFence->_halfSize = Vector2(50, 500);
 	rightFence->_halfSize = Vector2(50, 500);
@@ -132,29 +125,6 @@ void Map::CreateMap()
 	{
 		for (int x = 0; x < MAXCOUNT_X; x++)
 		{
-			/*if (y == 0)
-			{
-				_aBlocks[y][x]->SetBlockType(A_Block::A_BlockType::NONDESTROY);
-				continue;
-			}
-
-			if (x == 0)
-			{
-				_aBlocks[y][x]->SetBlockType(A_Block::A_BlockType::NONDESTROY);
-				continue;
-			}
-
-			if (x == 29)
-			{
-				_aBlocks[y][x]->SetBlockType(A_Block::A_BlockType::NONDESTROY);
-				continue;
-			}
-
-			else
-			{
-				_aBlocks[y][x]->SetBlockType(A_Block::A_BlockType::NONE);
-			}
-			*/
 			_aBlocks[y][x]->SetBlockType(A_Block::A_BlockType::DESTROY);
 		}
 	}
@@ -163,9 +133,8 @@ void Map::CreateMap()
 void Map::DeleteBlock(shared_ptr<A_Block> block)
 {
 	block->SetBlockType(A_Block::A_BlockType::NONE);
+	
 	_deleteBlocks.push_back(block);
-
-	//map->_aBlocks[i].erase(map->_aBlocks[i].begin() + j);
 }
 
 bool Map::DeletedCheck(shared_ptr<A_Block> block)

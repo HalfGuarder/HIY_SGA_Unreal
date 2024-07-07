@@ -1,9 +1,9 @@
 #pragma once
 
-//#define BLACK_COLOR			0
-#define GREEN_COLOR			0
-#define RED_COLOR			1
-#define SKYCOLOR_COLOR		2
+#define BLACK_COLOR			0
+#define GREEN_COLOR			1
+#define RED_COLOR			2
+#define SKYCOLOR_COLOR		3
 
 class RectCollider;
 class CircleCollider;
@@ -32,7 +32,7 @@ public:
 	virtual bool IsCollision(shared_ptr<CircleCollider> other) abstract;
 	virtual bool IsCollision(shared_ptr<RectCollider> other) abstract;
 
-	//virtual void SetBlack() { SetColor(BLACK_COLOR); }
+	virtual void SetBlack() { SetColor(BLACK_COLOR); }
 	virtual void SetGreen() { SetColor(GREEN_COLOR); }
 	virtual void SetRed() { SetColor(RED_COLOR); }
 	virtual void SetSkyColor() { SetColor(SKYCOLOR_COLOR); }

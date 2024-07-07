@@ -6,7 +6,7 @@ public:
 	{
 		NONE,
 		DESTROY,
-		NONDESTROY
+		NONEDESTROY
 	};
 
 	A_Block();
@@ -17,6 +17,8 @@ public:
 
 	void SetPositon(Vector2 pos);
 	void SetBlockType(A_BlockType type);
+
+	
 
 private:
 	A_BlockType _type = A_BlockType::NONE;
