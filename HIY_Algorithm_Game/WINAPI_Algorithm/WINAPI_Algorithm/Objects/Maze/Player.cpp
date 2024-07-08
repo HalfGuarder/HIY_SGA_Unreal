@@ -4,6 +4,8 @@
 #include "Maze.h"
 #include "Block.h"
 
+vector<vector<bool>> visited = vector<vector<bool>>(MAXCOUNT_Y, vector<bool>(MAXCOUNT_X, false));
+
 Player::Player(shared_ptr<Maze> maze)
 {
 	_maze = maze;
@@ -135,12 +137,16 @@ void Player::DFS(Vector2 start)
 	};
 
 	// 계속 초기화 되는 문제 -> DFS 함수 밖으로 꺼내야 함.
-	vector<vector<bool>> visited = vector<vector<bool>>(MAXCOUNT_Y, vector<bool>(MAXCOUNT_X, false));
-	
-	Vector2 pos = start;
-	Vector2 endPos = _maze->GetEndPos();
+	//vector<vector<bool>> visited = vector<vector<bool>>(MAXCOUNT_Y, vector<bool>(MAXCOUNT_X, false));
 
+	// Vector2 pos = start; // 아래 here와 중복
+	Vector2 endPos = _maze->GetEndPos();
 	Vector2 here = start;
+
+	if (_path.size() == 0)
+	{
+		_path.push_back(start);
+	}
 
 	visited[here._y][here._x] = true;
 
@@ -152,7 +158,11 @@ void Player::DFS(Vector2 start)
 
 		if (visited[there._y][there._x] == true) continue;
 
-		if (there == endPos) break;
+		if (there == endPos)
+		{
+			_path.push_back(there);
+			break;
+		}
 
 		_path.push_back(there);
 		DFS(there);
@@ -178,7 +188,7 @@ void Player::BFS(Vector2 start)
 	vector<vector<bool>> discovered = vector<vector<bool>>(MAXCOUNT_Y, vector<bool>(MAXCOUNT_X, false));
 	vector<vector<Vector2>> parent = vector<vector<Vector2>>(MAXCOUNT_Y, vector<Vector2>(MAXCOUNT_X, Vector2(-1, -1)));
 
-	Vector2 pos = start;
+	Vector2 pos = start; // 없어도 되는가?
 	Vector2 endPos = _maze->GetEndPos();
 
 	discovered[start._y][start._x] = true;
