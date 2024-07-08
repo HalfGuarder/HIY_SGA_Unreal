@@ -10,7 +10,7 @@ Block::Block()
 	
 	// _pens[0] ... Green
 	// _pens[1] ... Red
-	_pens.push_back(CreatePen(PS_SOLID, 3, SKYCOLOR)); // _pens[2] ... SkyColor
+	//_pens.push_back(CreatePen(PS_SOLID, 3, SKYCOLOR)); // _pens[2] ... SkyColor
 
 	SetGreen();
 }
@@ -30,7 +30,6 @@ void Block::Update()
 
 void Block::Render(HDC hdc)
 {
-	// SelectObject(hdc, _pens[static_cast<int>(_type)]);
 	SelectObject(hdc, _brushes[static_cast<int>(_type)]);
 	RectCollider::Render(hdc);
 }
@@ -44,29 +43,5 @@ void Block::SetBlockType(BlockType type)
 {
 	_type = type;
 	_curPen = _pens[static_cast<int>(_type)];
-	/*switch (type)
-	{
-	case Block::BlockType::NONE:
-	{
-	}
-		break;
-	case Block::BlockType::ABLE:
-	{
-		SetGreen();
-	}
-		break;
-	case Block::BlockType::DISABLE:
-	{
-		SetRed();
-	}
-		break;
-	case Block::BlockType::PLAYER_POS:
-	{
-		SetSkyColor();
-	}
-		break;
-	default:
-		break;
-	}*/
 }
 

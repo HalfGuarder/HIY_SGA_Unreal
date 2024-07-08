@@ -13,8 +13,6 @@ using namespace std;
 // 닫혀 있는지 확인할 수 있다.
 
 vector<bool> visited;
-vector<vector<bool>> adhacent;
-
 vector<vector<bool>> adjacent;
 
 void CreateGraph_AdjacentMatrix()

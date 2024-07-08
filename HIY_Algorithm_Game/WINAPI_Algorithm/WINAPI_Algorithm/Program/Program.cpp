@@ -15,7 +15,7 @@ Program::Program()
 {
 	srand(time(nullptr));
 
-	_scene = make_shared<ArkanoidScene>();
+	_scene = make_shared<MazeScene>();
 	
 	HDC hdc = GetDC(hWnd);
 

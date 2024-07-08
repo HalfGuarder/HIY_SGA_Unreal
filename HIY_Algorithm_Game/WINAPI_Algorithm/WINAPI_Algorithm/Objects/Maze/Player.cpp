@@ -17,7 +17,9 @@ Player::~Player()
 void Player::BeginPlay()
 {
 	_maze->SetPlayerPos(_pos);
-	RightHand();
+	_pos = _maze->GetStartPos();
+
+	DFS(_pos);
 }
 
 void Player::RightHand()
@@ -38,7 +40,7 @@ void Player::RightHand()
 
 	Vector2 pos = _pos;
 	_path.push_back(pos);
-	Vector2 endPos = Vector2(23, 23);
+	Vector2 endPos = _maze->GetEndPos();
 
 	Direction dir = Direction::BOTTOM;
 
@@ -115,6 +117,116 @@ void Player::RightHand()
 		std::reverse(_path.begin(), _path.end());
 	}
 
+}
+
+void Player::DFS(Vector2 start)
+{
+	Vector2 frontPos[8] =
+	{
+		Vector2 {0, -1},	// UP
+		Vector2 {-1, 0},	// LEFT
+		Vector2 {0, 1},		// BOTTOM
+		Vector2 {1, 0},		// RIGHT
+
+		Vector2 {-1, -1},	// UP LEFT
+		Vector2 {-1, 1},	// LEFT BOTTOM
+		Vector2 {1, 1},		// BOTTOM RIGIHT
+		Vector2 {1, -1}		// RIGHT UP
+	};
+
+	// 계속 초기화 되는 문제 -> DFS 함수 밖으로 꺼내야 함.
+	vector<vector<bool>> visited = vector<vector<bool>>(MAXCOUNT_Y, vector<bool>(MAXCOUNT_X, false));
+	
+	Vector2 pos = start;
+	Vector2 endPos = _maze->GetEndPos();
+
+	Vector2 here = start;
+
+	visited[here._y][here._x] = true;
+
+	for (int i = 0; i < 8; i++)
+	{
+		Vector2 there = here + frontPos[i];
+		
+		if (!CanGo(there._y, there._x)) continue;
+
+		if (visited[there._y][there._x] == true) continue;
+
+		if (there == endPos) break;
+
+		_path.push_back(there);
+		DFS(there);
+	}
+
+}
+
+void Player::BFS(Vector2 start)
+{
+	Vector2 frontPos[8] =
+	{
+		Vector2 {0, -1},	// UP
+		Vector2 {-1, 0},	// LEFT
+		Vector2 {0, 1},		// BOTTOM
+		Vector2 {1, 0},		// RIGHT
+
+		Vector2 {-1, -1},	// UP LEFT
+		Vector2 {-1, 1},	// LEFT BOTTOM
+		Vector2 {1, 1},		// BOTTOM RIGIHT
+		Vector2 {1, -1}		// RIGHT UP
+	};
+
+	vector<vector<bool>> discovered = vector<vector<bool>>(MAXCOUNT_Y, vector<bool>(MAXCOUNT_X, false));
+	vector<vector<Vector2>> parent = vector<vector<Vector2>>(MAXCOUNT_Y, vector<Vector2>(MAXCOUNT_X, Vector2(-1, -1)));
+
+	Vector2 pos = start;
+	Vector2 endPos = _maze->GetEndPos();
+
+	discovered[start._y][start._x] = true;
+	parent[start._y][start._x] = start;
+
+	queue<Vector2> q;
+	q.push(start);
+
+	while (true)
+	{
+		if (q.empty()) break;
+
+		Vector2 here = q.front();
+		q.pop();
+
+		// 지금 큐의 front가 도착점이면 break
+		if (here == endPos) break;
+
+		for (int i = 0; i < 8; i++)
+		{
+			Vector2 there = here + frontPos[i];
+			
+			// there가 갈 수 있는 블록인지 확인
+			if (!CanGo(there._y, there._x)) continue;
+			// there가 방문 되어 있는지 확인
+			if (discovered[there._y][there._x] == true) continue;
+
+			q.push(there);
+			discovered[there._y][there._x] = true;
+			parent[there._y][there._x] = here;
+		}
+	}
+
+	Vector2 check = endPos;
+	_path.push_back(check);
+	while (true)
+	{
+		if (check == start) break;
+
+		check = parent[check._y][check._x];
+		_path.push_back(check);
+	}
+
+	std::reverse(_path.begin(), _path.end());
+}
+
+void Player::Dijkstra(Vector2 start)
+{
 }
 
 bool Player::CanGo(int y, int x) // y , x 값 얻기

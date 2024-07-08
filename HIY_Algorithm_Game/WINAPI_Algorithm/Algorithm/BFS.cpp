@@ -19,9 +19,9 @@ void CreateGraph_AdjacentMatrix()
 	//	 0 1 2 3 4 5 6 
 	// 0 T T T F T F F
 	// 1 T T F F F F F
-	// 2 T F T T F T F
+	// 2 T F T T T T F
 	// 3 F F T T F F F
-	// 4 T F F F T F T
+	// 4 T F T F T F T
 	// 5 F T F F F T F
 	// 6 F F F F T F T
 
