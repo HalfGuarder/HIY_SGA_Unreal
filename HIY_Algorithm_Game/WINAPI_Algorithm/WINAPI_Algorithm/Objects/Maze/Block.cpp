@@ -7,6 +7,7 @@ Block::Block()
 	_brushes.push_back(CreateSolidBrush(GREEN));
 	_brushes.push_back(CreateSolidBrush(RED));
 	_brushes.push_back(CreateSolidBrush(SKYCOLOR));
+	_brushes.push_back(CreateSolidBrush(INDIGO));
 	
 	// _pens[0] ... Green
 	// _pens[1] ... Red

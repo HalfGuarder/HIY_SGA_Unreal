@@ -36,7 +36,6 @@ struct Vertex
 };
 
 vector<vector<int>> adjacent;
-vector<bool> discovered;
 vector<int> parent;
 
 void CreateGraph_AdjacentMatrix()
@@ -85,7 +84,7 @@ void Dijkstra(int start)
 {
 	parent = vector<int>(adjacent.size(), -1);
 	vector<int> best(adjacent.size(), INT_MAX);
-	priority_queue < Vertex, vector<Vertex>, greater<Vertex>> pq;
+	priority_queue<Vertex, vector<Vertex>, greater<Vertex>> pq;
 	
 	Vertex startV = Vertex(0, 0);
 	best[start] = 0;
