@@ -147,6 +147,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Framework\DisJointSet.h" />
     <ClInclude Include="Objects\Arkanoid\A_Block.h" />
     <ClInclude Include="Objects\Arkanoid\Ball.h" />
     <ClInclude Include="Objects\Arkanoid\Map.h" />

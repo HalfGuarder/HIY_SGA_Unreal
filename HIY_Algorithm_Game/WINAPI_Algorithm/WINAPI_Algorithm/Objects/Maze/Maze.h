@@ -4,12 +4,20 @@
 
 class Block;
 
-#define MAXCOUNT_X 25
-#define MAXCOUNT_Y 25
+#define MAXCOUNT_X 35
+#define MAXCOUNT_Y 35
 
 class Maze
 {
 public:
+	struct Edge
+	{
+		Vector2 u;
+		Vector2 v;
+
+		int cost = 0;
+	};
+
 	Maze();
 	~Maze();
 
@@ -17,6 +25,8 @@ public:
 	void Render(HDC hdc);
 
 	void CreateMaze();
+	void CreateMaze_Kruskal();
+
 	Block::BlockType GetBlockType(int y, int x);
 	void SetBlockType(int y, int x, Block::BlockType type);
 

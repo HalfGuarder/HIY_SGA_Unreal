@@ -21,7 +21,7 @@ void Player::BeginPlay()
 
 	_visited = vector<vector<bool>>(MAXCOUNT_Y, vector<bool>(MAXCOUNT_X, false));
 
-	AStar(_pos, _maze->GetEndPos());
+	// AStar(_pos, _maze->GetEndPos());
 }
 
 void Player::RightHand()
