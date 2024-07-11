@@ -16,12 +16,12 @@ Player::~Player()
 
 void Player::BeginPlay()
 {
-	_maze->SetPlayerPos(_pos);
 	_pos = _maze->GetStartPos();
+	_maze->SetPlayerPos(_pos);
 
 	_visited = vector<vector<bool>>(MAXCOUNT_Y, vector<bool>(MAXCOUNT_X, false));
 
-	// AStar(_pos, _maze->GetEndPos());
+	AStar(_pos, _maze->GetEndPos());
 }
 
 void Player::RightHand()
@@ -430,6 +430,9 @@ void Player::Update()
 	{
 		_pathIndex = 0;
 		_path.clear();
+
+		_maze->CreateMaze_Kruskal();
+		BeginPlay();
 		
 		return;
 	}
