@@ -28,10 +28,8 @@ int Combination(int n, int r)
 		return ref;
 	}
 
-	ref = Combination(n - 1, r) + Combination(n - 1, r - 1);
-
-
 	// ±¸ÇÏ±â
+	ref = Combination(n - 1, r) + Combination(n - 1, r - 1);
 
 	return ref;
 }
