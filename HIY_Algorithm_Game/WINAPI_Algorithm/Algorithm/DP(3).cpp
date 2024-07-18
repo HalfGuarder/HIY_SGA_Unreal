@@ -70,7 +70,14 @@ int Enchant2(int target)
 int main()
 {
 	int result = Enchant2(0);
-	cout << result << endl;
+	
+	// 서식 지정자
+	// %c : character
+	// %s : string
+	// %d : 부호 있는 10진 정수 decimal
+	// %f : float
+	int tmp = 1;
+	printf("Hello World! %d \n .... tmp : %d", result, tmp);
 
 	return 0;
 }

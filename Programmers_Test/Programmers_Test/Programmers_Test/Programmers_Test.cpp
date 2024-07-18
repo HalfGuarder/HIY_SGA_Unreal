@@ -1,83 +1,80 @@
-﻿#include <string>
+﻿#include <iostream>
+#include <algorithm>
 #include <vector>
 
 using namespace std;
 
-vector<vector<int>> students = {};
-vector<int> student = {};
+int M = 0;
+int N = 0;
+vector<int> v;
+vector<vector<int>> sub;
 
-vector<int> s1 = { 1, 2, 3, 4, 5 };
-vector<int> s2 = { 2, 1, 2, 3, 2, 4, 2, 5 };
-vector<int> s3 = { 3, 3, 1, 1, 2, 2, 4, 4, 5, 5 };
 
-vector<int> a;
 
-vector<int> correct = {};
-int cCount = 0;
-
-void DFS(int s)
+void Input()
 {
-    cCount = 0;
-    int num = 0;
-    for (int i = 0; i < a.size(); i++)
-    {
-        if (students[s][num] == a[i]) cCount++;
+	cin >> N;
+	cin >> M;
 
-        if (num == students[s].size() - 1) num = 0;
+	v.reserve(N);
+	sub.reserve(M);
 
-        num++;
-    }
+	for (int i = 0; i < N; i++)
+	{
+		int temp = 0;
+		cin >> temp;
+		v.push_back(temp);
+	}
 
-    if (correct.size() == 0)
-    {
-        correct.push_back(cCount);
-        student.push_back(s + 1);
+	for (int j = 0; j < M; j++)
+	{
+		vector<int> tempV;
 
-        return;
-    }
+		int a = 0;
+		int b = 0;
+		cin >> a;
+		cin >> b;
 
-    if (correct[0] < cCount)
-    {
-        correct[0] = cCount;
-        student.clear();
-        student.push_back(s + 1);
+		tempV.push_back(a);
+		tempV.push_back(b);
 
-    }
-    else if (correct[0] == cCount)
-    {
-        student.push_back(s + 1);
-    }
+		sub.push_back(tempV);
+	}
 }
 
-void DFS_ALL()
+vector<int> sumArr;
+void CreateSumArr()
 {
-    for (int s = 0; s < 3; s++)
-    {
-        DFS(s);
-    }
+	sumArr.reserve(N);
+
+	sumArr.push_back(v[0]);
+	for (int i = 0; i < N - 1; i++)
+	{
+		int temp = sumArr[i] + v[i + 1];
+		sumArr.push_back(temp);
+	}
 }
 
-
-vector<int> solution(vector<int> answers) {
-    a = answers;
-
-
-    students.push_back(s1);
-    students.push_back(s2);
-    students.push_back(s3);
-
-    DFS_ALL();
-
-
-
-    return student;
-}
 int main()
 {
-    vector<int> answers = { 1, 3, 3, 1, 1 };
+	Input();
+	CreateSumArr();
 
-    solution(answers);
+	for (int i = 0; i < M; i++)
+	{
+		int a = sub[i][0];
+		int b = sub[i][1];
 
-    return 0;
+		if (a == 1)
+		{
+			printf("%d\n", sumArr[b - 1]);
+		}
+		else
+		{
+			printf("%d\n", sumArr[b - 1] - sumArr[a - 2]);
+		}
+	}
+
+
+	return 0;
 }
-

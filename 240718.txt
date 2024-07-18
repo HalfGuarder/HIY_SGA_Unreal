@@ -19,3 +19,11 @@ WINMERGE
 공부 사이트 https://code-lab1.tistory.com/
 
 종만북
+
+언리얼5 실행 -> 게임 프로젝트 -> TPS
+->C++ 기반 -> 프로젝트 생성 후
+-> 콘텐츠 라이브러리 -> C++ 클래스
+-> 프로젝트이름+Character 열기
+
+Ray Trace = X
+옵션 제일 낮게
