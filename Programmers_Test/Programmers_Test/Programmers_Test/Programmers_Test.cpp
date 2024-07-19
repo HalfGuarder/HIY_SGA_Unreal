@@ -1,80 +1,57 @@
-﻿#include <iostream>
-#include <algorithm>
+﻿#include <string>
 #include <vector>
+#include <algorithm>
 
 using namespace std;
 
-int M = 0;
-int N = 0;
-vector<int> v;
-vector<vector<int>> sub;
-
-
-
-void Input()
+void SortNum(vector<int> numlist, int here, int n)
 {
-	cin >> N;
-	cin >> M;
+    if (here == 0) return;
 
-	v.reserve(N);
-	sub.reserve(M);
+    int i = 1;
+    
+    while (true)
+    {
+        int there = here - i;
 
-	for (int i = 0; i < N; i++)
-	{
-		int temp = 0;
-		cin >> temp;
-		v.push_back(temp);
-	}
+        int h = abs(n - numlist[here]);
+        int t = abs(n - numlist[there]);
 
-	for (int j = 0; j < M; j++)
-	{
-		vector<int> tempV;
+        if (h < t)
+        {
+            swap(numlist[there], numlist[here]);
+            SortNum(numlist, here, n);
+        }
+        else if (h == t)
+        {
+            if (numlist[here] - numlist[there] > 0)
+            {
+                swap(numlist[there], numlist[here]);
+                SortNum(numlist, here, n);
+            }
+        }
 
-		int a = 0;
-		int b = 0;
-		cin >> a;
-		cin >> b;
-
-		tempV.push_back(a);
-		tempV.push_back(b);
-
-		sub.push_back(tempV);
-	}
+        i++;
+        if (i > here) break;
+    }
 }
 
-vector<int> sumArr;
-void CreateSumArr()
-{
-	sumArr.reserve(N);
+vector<int> solution(vector<int> numlist, int n) {
+    vector<int> answer;
 
-	sumArr.push_back(v[0]);
-	for (int i = 0; i < N - 1; i++)
-	{
-		int temp = sumArr[i] + v[i + 1];
-		sumArr.push_back(temp);
-	}
+    for (int i = numlist.size() - 1; i >= 0; i--)
+    {
+        SortNum(numlist, i, n);
+    }
+
+    return answer = numlist;
 }
 
 int main()
 {
-	Input();
-	CreateSumArr();
-
-	for (int i = 0; i < M; i++)
-	{
-		int a = sub[i][0];
-		int b = sub[i][1];
-
-		if (a == 1)
-		{
-			printf("%d\n", sumArr[b - 1]);
-		}
-		else
-		{
-			printf("%d\n", sumArr[b - 1] - sumArr[a - 2]);
-		}
-	}
-
+    vector<int> numlist = { 10000, 20, 36, 47, 40, 6, 10, 7000 };
+    int n = 30;
+    solution(numlist, 30);
 
 	return 0;
 }
