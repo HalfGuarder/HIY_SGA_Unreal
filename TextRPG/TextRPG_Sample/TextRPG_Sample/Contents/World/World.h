@@ -48,7 +48,7 @@ public:
 
 
 private:
-	bool SelectPlayer(int num, string name, Creature** creature);
+	bool SelectPlayer(int num, string name, shared_ptr<Creature*> creature);
 	bool SelectComputer(int num, string name, Creature** creature);
 	void Input();
 
@@ -64,10 +64,10 @@ private:
 	string PArrName(int pClass, int num);
 
 	
-	vector<Creature*>::iterator gArrIter = _gArr.begin();
-	Creature* _player;
+	//vector<Creature*>::iterator gArrIter = _gArr.begin();
+	shared_ptr<Creature> _player;
 	Creature* _computer;
-	vector<Creature*> _gArr;
+	vector<shared_ptr<Creature>> _gArr;
 
 	Creature* _hGoblin = nullptr;
 	vector<Creature*> _pArr;
